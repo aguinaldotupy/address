@@ -1,0 +1,54 @@
+{
+    "name": "tupy/addresses-manager",
+    "description": "Manager Addresses",
+    "keywords": [
+        "addressesmanager"
+    ],
+    "homepage": "https://github.com/aguinaldotupy/address.git",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Aguinaldo Tupy",
+            "email": "aguinaldo.tupy@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "illuminate/support": "5.6.*|5.7.*|5.8.*|^6.0",
+        "guzzlehttp/guzzle": "^6.4"
+    },
+    "require-dev": {
+        "orchestra/testbench": "3.8.*",
+        "phpunit/phpunit": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tupy\\AddressesManager\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tupy\\AddressesManager\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tupy\\AddressesManager\\AddressesManagerServiceProvider"
+            ],
+            "aliases": {
+                "AddressesManager": "Tupy\\AddressesManager\\AddressesManagerFacade"
+            }
+        }
+    }
+}
