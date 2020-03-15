@@ -12,23 +12,16 @@ use Tupy\AddressesManager\Traits\HasZone;
  * @property int $id
  * @property string $addressable_type
  * @property int $addressable_id
- * @property string|null $address_id
  * @property string|null $tag
- * @property string|null $address
- * @property int|null $id_postal_code
+ * @property string|null $address_street_1
+ * @property string|null $address_street_2
  * @property string $zip_code
- * @property string|null $port
+ * @property string|null $number
  * @property string|null $complement
- * @property int|null $parish_id
- * @property string|null $parish
- * @property string|null $district_id
- * @property string|null $district
- * @property string|null $county_id
- * @property string|null $county
- * @property string|null $locality_id
- * @property string|null $locality
- * @property string|null $country_id
  * @property string|null $country
+ * @property string|null $city
+ * @property string|null $state
+ * @property string|null $neighborhood
  * @property string|null $observation
  * @property string|null $latitude
  * @property string|null $longitude
@@ -45,7 +38,7 @@ class Address extends Model
 	protected $table = 'addresses';
 
 	protected $fillable = [
-        'addressable_type', 'addressable_id', 'type', 'id_postal_code', 'address', 'address_id', 'zip_code', 'port', 'complement', 'parish_id', 'parish', 'district_id', 'district', 'county_id', 'locality_id', 'locality', 'county', 'country_id', 'country', 'tag', 'observation', 'latitude', 'longitude'
+        'addressable_type', 'addressable_id', 'tag', 'address_street_1', 'address_street_2', 'zip_code', 'number', 'complement', 'city', 'state', 'neighborhood', 'country', 'observation', 'latitude', 'longitude'
     ];
 
     /**
