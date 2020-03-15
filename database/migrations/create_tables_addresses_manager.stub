@@ -26,6 +26,7 @@ class CreateTablesAddressesManager extends Migration
                 $table->string('complement')->nullable();
                 $table->string('city')->nullable();
                 $table->string('state')->nullable();
+                $table->string('state_prefix', 5)->nullable();
                 $table->string('neighborhood')->nullable();
                 $table->string('country')->nullable();
                 $table->longText('observation')->nullable();

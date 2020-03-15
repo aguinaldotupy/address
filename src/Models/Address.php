@@ -21,6 +21,7 @@ use Tupy\AddressesManager\Traits\HasZone;
  * @property string|null $country
  * @property string|null $city
  * @property string|null $state
+ * @property string|null $state_prefix
  * @property string|null $neighborhood
  * @property string|null $observation
  * @property string|null $latitude
