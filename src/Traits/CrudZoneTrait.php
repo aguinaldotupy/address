@@ -71,7 +71,7 @@ trait CrudZoneTrait
     protected function validator(array $data, $name = null)
     {
         return \Validator::make($data, [
-            'name' => "required|string|unique:zones,name,{$name},name"
+            'name' => "required|string|unique:zones,name,{$name}"
         ]);
     }
 }

@@ -13,6 +13,6 @@ trait HasZone
 {
     public function zone()
     {
-        return $this->belongsTo(Zone::class);
+        return $this->belongsTo(Zone::class, 'zone_id', 'id');
     }
 }

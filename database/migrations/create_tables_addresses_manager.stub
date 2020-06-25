@@ -14,11 +14,39 @@ class CreateTablesAddressesManager extends Migration
      */
     public function up()
     {
+        if (! Schema::hasTable('zones')) {
+            \Schema::create('zones', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->string('name', 50);
+                $table->timestamps();
+            });
+
+            $zones = [
+                'Norte',
+                'Nordeste',
+                'Sul',
+                'Sudeste',
+                'Leste',
+                'Oeste',
+                'Centro',
+                'Centro Oeste',
+            ];
+
+            foreach ($zones as $key => $zone){
+                Zone::updateOrCreate([
+                    'name' => $zone
+                ],[
+                    'name' => $zone
+                ]);
+            }
+        }
+
         if (! Schema::hasTable('addresses')) {
             Schema::create('addresses', function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->morphs('addressable');
                 $table->string('tag')->nullable();
+                $table->unsignedBigInteger('zone_id')->nullable();
                 $table->string('address_street_1')->nullable();
                 $table->string('address_street_2')->nullable();
                 $table->string('zip_code', 20);
@@ -33,31 +61,9 @@ class CreateTablesAddressesManager extends Migration
                 $table->string('latitude')->nullable();
                 $table->string('longitude')->nullable();
                 $table->timestamps();
+
+                $table->foreign('zone_id')->references('id')->on('zones')->onDelete('SET NULL')->onUpdate('cascade');
             });
-        }
-
-        if (! Schema::hasTable('zones')) {
-            \Schema::create('zones', function (Blueprint $table) {
-                $table->bigIncrements('id');
-                $table->string('name', 50);
-                $table->timestamps();
-            });
-
-            $zones = [
-                'Norte',
-                'Sul',
-                'Leste',
-                'Oeste',
-                'Centro',
-            ];
-
-            foreach ($zones as $key => $zone){
-                Zone::updateOrCreate([
-                    'name' => $zone
-                ],[
-                    'name' => $zone
-                ]);
-            }
         }
 
     }

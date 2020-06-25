@@ -39,7 +39,7 @@ class Address extends Model
 	protected $table = 'addresses';
 
 	protected $fillable = [
-        'addressable_type', 'addressable_id', 'tag', 'address_street_1', 'address_street_2', 'zip_code', 'number', 'complement', 'city', 'state', 'neighborhood', 'country', 'observation', 'latitude', 'longitude'
+        'zone_id', 'addressable_type', 'addressable_id', 'tag', 'address_street_1', 'address_street_2', 'zip_code', 'number', 'complement', 'city', 'state', 'neighborhood', 'country', 'observation', 'latitude', 'longitude'
     ];
 
     /**

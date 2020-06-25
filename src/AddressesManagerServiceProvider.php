@@ -16,8 +16,6 @@ class AddressesManagerServiceProvider extends ServiceProvider
         /*
          * Optional methods to load your package assets
          */
-        // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'addressesmanager');
-        // $this->loadViewsFrom(__DIR__.'/../resources/views', 'addressesmanager');
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         $this->loadRoutesFrom(__DIR__.'/routes.php');
 

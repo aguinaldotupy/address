@@ -2,7 +2,7 @@
     "name": "tupy/addresses-manager",
     "description": "Manager Addresses",
     "keywords": [
-        "addressesmanager"
+        "addresses-manager"
     ],
     "homepage": "https://github.com/aguinaldotupy/address.git",
     "license": "MIT",
@@ -37,12 +37,14 @@
     "scripts": {
         "test": "vendor/bin/phpunit",
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
-
     },
     "config": {
         "sort-packages": true
     },
     "extra": {
+        "branch-aliases": {
+            "dev-master": "1.0-dev"
+        },
         "laravel": {
             "providers": [
                 "Tupy\\AddressesManager\\AddressesManagerServiceProvider"
