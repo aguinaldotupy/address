@@ -31,7 +31,9 @@ class AddressesController extends BaseController
 	public function searchCep($cep)
     {
         try {
-            return new JsonResource(AddressesManager::make()->searchCep($cep));
+            return new JsonResource(Cache::remember('cep_api_address_' . $cep, 360, function() use ($cep){
+                return AddressesManager::make()->searchCep($cep);
+            }));
         } catch (\Exception $e) {
             return [];
         }
