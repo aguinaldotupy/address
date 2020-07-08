@@ -20,13 +20,13 @@ trait HasAddress
     }
 
     /**
-     * Retrive address
+     * Retrieve address
      * @param string $tag
      * @return mixed
      */
-    public function getAddress($tag = 'morada')
+    public function getAddress($tag = 'Home')
     {
-        return optional($this->addresses()->where('tag', $tag)->first());
+        return $this->addresses()->firstWhere('tag', $tag);
     }
 
     public function address()
@@ -37,20 +37,23 @@ trait HasAddress
     /**
      * Create address
      * @param array $data
+     * @return \Tupy\AddressesManager\Models\Address
      */
     public function createAddress(array $data)
     {
-        $this->addresses()->create($data);
+        return $this->addresses()->create($data);
     }
 
     /**
      * Update address
      * @param array $data
      * @param string $tag *Default morada
+     * @return \Tupy\AddressesManager\Models\Address
      */
-    public function updateAddress(array $data, $tag = 'morada')
+    public function updateAddress(array $data, $tag = 'Home')
     {
-        //dd($data, $this->getAddress());
         $this->addresses()->updateOrCreate(['tag' => $tag], $data);
+
+        return $this->address;
     }
 }
