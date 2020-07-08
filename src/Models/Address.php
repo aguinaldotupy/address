@@ -2,7 +2,6 @@
 
 namespace Tupy\AddressesManager\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Tupy\AddressesManager\Traits\HasZone;
 
 /**
@@ -32,7 +31,7 @@ use Tupy\AddressesManager\Traits\HasZone;
  * @property-read string|null $coordinate
  * @property-read string $mapPopupContent
  */
-class Address extends Model
+class Address extends \Illuminate\Database\Eloquent\Model
 {
     use HasZone;
 
@@ -92,7 +91,7 @@ class Address extends Model
         $addressString = str_replace(' ', '+', $this->address);
         $countyString = str_replace(' ', '+', $this->county);
 
-        if($this->addressable->name){
+        if(isset($this->addressable->name) && $this->addressable->name){
             $name = $this->addressable->name;
         } else {
             $name = '';

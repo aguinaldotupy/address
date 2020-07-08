@@ -18,6 +18,8 @@ class AddressesManager
 	protected $baseUrl;
 	protected $timeToSleep = 0.4;
 
+	protected $urlIbge = 'https://servicodados.ibge.gov.br/api/v1/localidades';
+
 	public function __construct()
 	{
 		$handler = new CurlHandler();
@@ -26,9 +28,27 @@ class AddressesManager
 		$stack->push(Middleware::retry($this->retryDecider(), $this->retryDelay()));
 
 		$this->guzzle = new Guzzle(['handler' => $stack]);
-
-		$this->baseUrl = config('addresses-manager.url_api');
 	}
+
+	public static function make()
+    {
+        return new AddressesManager();
+    }
+
+    public function setBaseUrl($value = null)
+    {
+        if (is_null($value)) {
+            $value = config('addresses-manager.url_api');
+        }
+
+        $this->baseUrl = $value;
+    }
+
+    public function getBaseUrl()
+    {
+        return $this->baseUrl;
+    }
+
 
 	protected function retryDecider()
 	{
@@ -128,6 +148,88 @@ class AddressesManager
             // sleep($this->timeToSleep);
 		} catch (GuzzleException $e) {
 		    return $e->getMessage();
+        }
+    }
+
+    public function getStates()
+    {
+        try {
+            $response = $this->guzzle->request('GET', sprintf('%s/estados', $this->urlIbge), [
+                'headers' => [
+                    'Accept' => 'application/json',
+                ]
+            ]);
+
+            return json_decode($response->getBody()->getContents(), true);
+        } catch (GuzzleException $e) {
+            var_dump($e->getMessage()); die;
+        }
+    }
+
+    public function getCities($state_id = null)
+    {
+        if (is_null($state_id)) {
+            $url = sprintf('%s/municipios', $this->urlIbge);
+        } else {
+            $url = sprintf('%s/estados/%s/municipios', $this->urlIbge, $state_id);
+        }
+
+        try {
+            $response = $this->guzzle->request('GET', $url, [
+                'headers' => [
+                    'Accept' => 'application/json',
+                ]
+            ]);
+
+            return json_decode($response->getBody()->getContents(), true);
+        } catch (GuzzleException $e) {
+            var_dump($e->getMessage()); die;
+        }
+    }
+
+    public function getCitiesByState($state_id)
+    {
+        return $this->getCities($state_id);
+    }
+
+    public function getNeighborhoods($city_id = null)
+    {
+        if (is_null($city_id)) {
+            $url = sprintf('%s/subdistritos', $this->urlIbge);
+        } else {
+            $url = sprintf('%s/municipios/%s/subdistritos', $this->urlIbge, $city_id);
+        }
+
+        try {
+            $response = $this->guzzle->request('GET', $url, [
+                'headers' => [
+                    'Accept' => 'application/json',
+                ]
+            ]);
+
+            return json_decode($response->getBody()->getContents(), true);
+        } catch (GuzzleException $e) {
+            var_dump($e->getMessage()); die;
+        }
+    }
+
+    public function getNeighborhoodsByCity($city_id)
+    {
+        return $this->getNeighborhoods($city_id);
+    }
+
+    public function searchCep($cep)
+    {
+        try {
+            $response = $this->guzzle->request('GET', sprintf('https://viacep.com.br/ws/%s/json/', $cep), [
+                'headers' => [
+                    'Accept' => 'application/json',
+                ]
+            ]);
+
+            return json_decode($response->getBody()->getContents(), true);
+        } catch (GuzzleException $e) {
+            var_dump($e->getMessage()); die;
         }
     }
 }
