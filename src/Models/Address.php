@@ -30,6 +30,7 @@ use Tupy\AddressesManager\Traits\HasZone;
  * @property-read Model|\Eloquent $addressable
  * @property-read string|null $coordinate
  * @property-read string $mapPopupContent
+ * @property-read string $street
  */
 class Address extends \Illuminate\Database\Eloquent\Model
 {
@@ -98,5 +99,22 @@ class Address extends \Illuminate\Database\Eloquent\Model
         }
 
         return "{$url}{$name}+{$addressString},+{$this->zip_code}+{$countyString}/";
+    }
+
+    public function getStreetAttribute()
+    {
+        if ($this->address_street_1 && $this->address_street_2) {
+            return "{$this->address_street_1}, {$this->address_street_2}";
+        }
+
+        if ($this->address_street_1) {
+            return $this->address_street_1;
+        }
+
+        if ($this->address_street_2) {
+            return $this->address_street_2;
+        }
+
+        return null;
     }
 }
