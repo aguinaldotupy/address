@@ -46,6 +46,8 @@ class CreateTablesAddressesManager extends Migration
                 $table->bigIncrements('id');
                 $table->morphs('addressable');
                 $table->string('tag')->nullable();
+                $table->string('people_contact')->nullable();
+                $table->string('phone')->nullable();
                 $table->unsignedBigInteger('zone_id')->nullable();
                 $table->string('address_street_1')->nullable();
                 $table->string('address_street_2')->nullable();
