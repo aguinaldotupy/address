@@ -2,14 +2,18 @@
 
 namespace Tupy\AddressesManager\Controllers;
 
+use App\Models\FileManager;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Cache;
 use Tupy\AddressesManager\AddressesManager;
+use Tupy\AddressesManager\Traits\CrudAddress;
 
 class AddressesController extends BaseController
 {
+    use CrudAddress;
+
     /**
      * @param Request $request
      * @param string $typeService
@@ -70,5 +74,25 @@ class AddressesController extends BaseController
         } catch (\Exception $e) {
             return [];
         }
+    }
+
+    public function store()
+    {
+        return self::storeCrud();
+    }
+
+    public function show($id)
+    {
+        return self::showCrud($id);
+    }
+
+    public function update($id)
+    {
+        return self::updateCrud($id);
+    }
+
+    public function destroy($id)
+    {
+        return self::destroyCrud($id);
     }
 }
