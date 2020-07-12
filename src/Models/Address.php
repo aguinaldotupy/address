@@ -49,7 +49,7 @@ class Address extends \Illuminate\Database\Eloquent\Model
      * @var array
      */
     public $appends = [
-        'coordinate', 'map_popup_content', 'url_google_maps'
+        'coordinate', 'map_popup_content', 'url_google_maps', 'street',
     ];
 
     public function addressable()
